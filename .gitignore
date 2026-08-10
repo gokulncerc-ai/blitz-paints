@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ML generated files
+ml-service/**/__pycache__/
+ml-service/**/.pytest_cache/
+
+# Temporary files
+*.tmp
+*.temp
+
+backend/.env
+frontend/.env
+ml-service/.env

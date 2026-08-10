@@ -1,0 +1,9 @@
+/* Path: frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1a1a2e;
+}

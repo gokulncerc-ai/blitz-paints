@@ -1,0 +1,132 @@
+// Blitz Paints - Prisma Schema (Phase 1)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+model ProductCategory {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?   @map("image_url")
+  isActive    Boolean   @default(true) @map("is_active")
+  products    Product[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@map("product_categories")
+}
+
+model Product {
+  id           String           @id @default(uuid())
+  name         String
+  slug         String           @unique
+  description  String
+  category     ProductCategory? @relation(fields: [categoryId], references: [id])
+  categoryId   String?          @map("category_id")
+  productType  String           @map("product_type")
+  priceRange   String           @map("price_range")
+  basePrice    Decimal?         @map("base_price")
+  coverageArea String?          @map("coverage_area")
+  finish       String?          @map("finish")
+  lowVoc       Boolean          @default(false) @map("low_voc")
+  antiAlgae    Boolean          @default(false) @map("anti_algae")
+  images       Json             @default("[]")
+  isFeatured   Boolean          @default(false) @map("is_featured")
+  isActive     Boolean          @default(true) @map("is_active")
+  enquiries    Enquiry[]
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+
+  @@map("products")
+}
+
+model Service {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String
+  serviceType String    @map("service_type") // interior_painting, exterior_painting, waterproofing, tile_coating
+  images      Json      @default("[]")
+  isFeatured  Boolean   @default(false) @map("is_featured")
+  isActive    Boolean   @default(true) @map("is_active")
+  enquiries   Enquiry[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
+model Enquiry {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String
+  pincode     String
+  state       String
+  enquiryType String   @map("enquiry_type") // product, service, general
+  message     String?
+  product     Product? @relation(fields: [productId], references: [id])
+  productId   String?  @map("product_id")
+  service     Service? @relation(fields: [serviceId], references: [id])
+  serviceId   String?  @map("service_id")
+  status      String   @default("pending") // pending, contacted, resolved, closed
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("enquiries")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  category    String   // interior, exterior, waterproofing
+  beforeImage String   @map("before_image")
+  afterImage  String   @map("after_image")
+  location    String?
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("projects")
+}
+
+model Gallery {
+  id        String   @id @default(uuid())
+  title     String?
+  imageUrl  String   @map("image_url")
+  category  String   // projects, products, team, events
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("gallery")
+}
+
+model News {
+  id            String    @id @default(uuid())
+  title         String
+  slug          String    @unique
+  excerpt       String?
+  content       String
+  featuredImage String?   @map("featured_image")
+  tag           String?   // Product Launch, Company Update, Event
+  isPublished   Boolean   @default(false) @map("is_published")
+  publishedAt   DateTime? @map("published_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  @@map("news")
+}
+
+model ColourShade {
+  id        String   @id @default(uuid())
+  name      String
+  hexCode   String   @map("hex_code")
+  family    String?  // reds, greens, blues, neutrals
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("colour_shades")
+}
