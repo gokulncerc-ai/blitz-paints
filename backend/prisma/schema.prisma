@@ -35,6 +35,7 @@ model Product {
   basePrice    Decimal?         @map("base_price")
   coverageArea String?          @map("coverage_area")
   finish       String?          @map("finish")
+  availablePacks String[]       @default([]) @map("available_packs")
   lowVoc       Boolean          @default(false) @map("low_voc")
   antiAlgae    Boolean          @default(false) @map("anti_algae")
   images       Json             @default("[]")

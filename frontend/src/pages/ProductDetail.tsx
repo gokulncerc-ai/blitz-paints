@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getProductBySlug } from '../api/products';
 import { submitEnquiry } from '../api/enquiries';
 import { Product } from '../types';
+import { GiPaintBucket } from 'react-icons/gi';
 import { getPaintImage } from '../assets/images/paints';
 import Loader from '../components/ui/Loader';
 import ErrorMessage from '../components/ui/ErrorMessage';
@@ -64,6 +65,22 @@ export default function ProductDetail() {
             {product.lowVoc && <li>Low VOC formula</li>}
             {product.antiAlgae && <li>Anti-algae protection</li>}
           </ul>
+          {product.availablePacks && product.availablePacks.length > 0 && (
+            <div className="mt-6">
+              <h3 className="mb-3 text-sm font-semibold text-navy">Available Packs</h3>
+              <div className="flex flex-wrap gap-3">
+                {product.availablePacks.map((pack) => (
+                  <span
+                    key={pack}
+                    className="flex items-center gap-2 rounded-full border border-navy/15 bg-navy/5 px-4 py-2 text-sm font-medium text-navy"
+                  >
+                    <GiPaintBucket size={16} className="text-[#F86B06]" />
+                    {pack}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="mt-8 space-y-3 rounded-xl border border-navy/10 p-6">
             <h2 className="mb-2 font-bold text-navy">Quick Enquiry</h2>
             <p className="mb-2 text-sm text-navy/60">

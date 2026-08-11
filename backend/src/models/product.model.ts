@@ -15,6 +15,7 @@ export interface ProductRecord {
     basePrice: Prisma.Decimal | null;
     coverageArea: string | null;
     finish: string | null;
+    availablePacks: string[];
     lowVoc: boolean;
     antiAlgae: boolean;
     images: Prisma.JsonValue;

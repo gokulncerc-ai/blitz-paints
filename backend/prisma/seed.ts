@@ -26,12 +26,13 @@ interface ProductSeed {
   basePrice: number;
   coverageArea: string;
   finish: string;
+  availablePacks: string[];
   lowVoc: boolean;
   antiAlgae: boolean;
   images: string[];
   isFeatured: boolean;
 }
-
+const AVAILABLE_PACKS = ['1 Litre', '4 Litre', '10 Litre', '20 Litre'];
 const products: ProductSeed[] = [
   {
     name: "Pyrite Two-in-One Economy Primer",
@@ -43,6 +44,7 @@ const products: ProductSeed[] = [
     basePrice: 1150,
     coverageArea: "110 - 130 Sq.ft/Coat",
     finish: "Matt",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: false,
     images: ["/images/paints/PyriteTwoinOnePrimer.png"],
@@ -58,6 +60,7 @@ const products: ProductSeed[] = [
     basePrice: 1550,
     coverageArea: "100 - 120 Sq.ft/Coat",
     finish: "Matt",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: false,
     images: ["/images/paints/ExteriorWaterproofPrimer.png"],
@@ -73,6 +76,7 @@ const products: ProductSeed[] = [
     basePrice: 1650,
     coverageArea: "100 - 110 Sq.ft/Coat",
     finish: "Matt",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: false,
     images: ["/images/paints/ExteriorDampProofPrimer.png"],
@@ -90,6 +94,7 @@ const products: ProductSeed[] = [
     basePrice: 1350,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Matt",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: false,
     antiAlgae: true,
     images: ["/images/paints/CalciteEconomyTwoinOneEmulsion.png"],
@@ -105,6 +110,7 @@ const products: ProductSeed[] = [
     basePrice: 2450,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Matt",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/FluoriteMediumExteriorEmulsion.png"],
@@ -120,6 +126,7 @@ const products: ProductSeed[] = [
     basePrice: 2650,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "High Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/OnyxSheenExteriorEmulsion.png"],
@@ -135,6 +142,7 @@ const products: ProductSeed[] = [
     basePrice: 3100,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "High Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/OpalPremiumExteriorEmulsion.png"],
@@ -150,6 +158,7 @@ const products: ProductSeed[] = [
     basePrice: 2950,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "High Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/AmberPremiumDampProofEmulsion.png"],
@@ -167,6 +176,7 @@ const products: ProductSeed[] = [
     basePrice: 1250,
     coverageArea: "85 - 90 Sq.ft/2 Coats",
     finish: "Smooth Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: false,
     antiAlgae: false,
     images: ["/images/paints/CitrineEconomyInteriorEmulsion.png"],
@@ -182,6 +192,7 @@ const products: ProductSeed[] = [
     basePrice: 2100,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Gloss",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: false,
     antiAlgae: false,
     images: ["/images/paints/GarnetGlossyInteriorEmulsion.png"],
@@ -197,6 +208,7 @@ const products: ProductSeed[] = [
     basePrice: 2200,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "High Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: false,
     antiAlgae: false,
     images: ["/images/paints/HowliteSheenInteriorEmulsion.png"],
@@ -212,6 +224,7 @@ const products: ProductSeed[] = [
     basePrice: 2400,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Ultra Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: false,
     images: ["/images/paints/AzuritePremiumInteriorEmulsion.png"],
@@ -229,6 +242,7 @@ const products: ProductSeed[] = [
     basePrice: 1950,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Gloss",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/SunstoneHighGlossFoundationCoat.png"],
@@ -244,6 +258,7 @@ const products: ProductSeed[] = [
     basePrice: 1800,
     coverageArea: "65 - 75 Sq.ft/2 Coats",
     finish: "Sheen",
+    availablePacks: AVAILABLE_PACKS,
     lowVoc: true,
     antiAlgae: true,
     images: ["/images/paints/JadeRoofTileCoat.png"],
@@ -270,6 +285,7 @@ async function main() {
         basePrice: p.basePrice,
         coverageArea: p.coverageArea,
         finish: p.finish,
+        availablePacks: p.availablePacks,
         lowVoc: p.lowVoc,
         antiAlgae: p.antiAlgae,
         images: p.images,
@@ -284,6 +300,7 @@ async function main() {
         basePrice: p.basePrice,
         coverageArea: p.coverageArea,
         finish: p.finish,
+        availablePacks: p.availablePacks,
         lowVoc: p.lowVoc,
         antiAlgae: p.antiAlgae,
         images: p.images,

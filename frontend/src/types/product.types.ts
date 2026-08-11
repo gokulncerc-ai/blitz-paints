@@ -31,6 +31,7 @@ export interface Product {
     basePrice: string | number | null;
     coverageArea: string | null;
     finish: string | null;
+    availablePacks: string[];
     lowVoc: boolean;
     antiAlgae: boolean;
     images: string[];

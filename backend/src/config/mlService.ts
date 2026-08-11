@@ -70,6 +70,23 @@ function checkDependencies(pythonCmd: string): { ok: boolean; error?: string } {
 }
 
 export async function startMlService(): Promise<void> {
+    // In production the ML service is its own deployed service (separate
+    // host/container), not something this process should spawn. Just confirm
+    // it's reachable at ML_SERVICE_URL and log clearly either way - never
+    // block the API from starting because of it.
+    if (process.env.NODE_ENV === 'production') {
+        const healthy = await checkHealth();
+        if (healthy) {
+            console.log(`ML service reachable at ${ML_SERVICE_URL}`);
+        } else {
+            console.warn(
+                `ML service NOT reachable at ${ML_SERVICE_URL}. ` +
+                'Wall-colour uploads will fail until it is deployed and ML_SERVICE_URL is set correctly.'
+            );
+        }
+        return;
+    }
+
     // Already running (e.g. started manually in another terminal) - use that one.
     if (await checkHealth()) {
         console.log(`ML service already running at ${ML_SERVICE_URL}`);
