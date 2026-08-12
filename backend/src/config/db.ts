@@ -11,7 +11,6 @@ if (!DATABASE_URL) {
         'DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/blitz_db?schema=public"'
     );
 }
-// Local Postgres (pgAdmin / localhost) does NOT use SSL by default.
 // Only set DB_SSL=true in .env when connecting to a hosted Postgres
 // (Neon, Supabase, Railway, RDS, etc.) that requires it.
 const useSSL = process.env.DB_SSL === 'true';

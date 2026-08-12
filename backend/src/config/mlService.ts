@@ -10,13 +10,17 @@
 
 import { ChildProcess, execFileSync, spawn } from 'child_process';
 import fs from 'fs';
-import http from 'http';
 import path from 'path';
 
 const ML_SERVICE_DIR = path.join(__dirname, '..', '..', '..', 'ml-service', 'generation');
 const ML_SERVICE_PORT = process.env.ML_SERVICE_PORT || '8000';
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || `http://localhost:${ML_SERVICE_PORT}`;
-
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL as string;
+if (!ML_SERVICE_URL) {
+    throw new Error(
+        'ML_SERVICE_URL is not set. Add it to backend/.env - e.g. ' +
+        'http://localhost:8000 for local dev, or your deployed ML service URL in production.'
+    );
+}
 let mlProcess: ChildProcess | null = null;
 
 function resolvePythonCmd(): string {
@@ -30,18 +34,17 @@ function resolvePythonCmd(): string {
     return fs.existsSync(venvPython) ? venvPython : 'python';
 }
 
-function checkHealth(): Promise<boolean> {
-    return new Promise((resolve) => {
-        const req = http.get(`${ML_SERVICE_URL}/health`, { timeout: 1500 }, (res) => {
-            resolve(res.statusCode === 200);
-            res.resume();
-        });
-        req.on('error', () => resolve(false));
-        req.on('timeout', () => {
-            req.destroy();
-            resolve(false);
-        });
-    });
+async function checkHealth(): Promise<boolean> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1500);
+    try {
+        const res = await fetch(`${ML_SERVICE_URL}/health`, { signal: controller.signal });
+        return res.status === 200;
+    } catch {
+        return false;
+    } finally {
+        clearTimeout(timeout);
+    }
 }
 
 async function waitForHealth(maxAttempts = 60, intervalMs = 1500): Promise<boolean> {

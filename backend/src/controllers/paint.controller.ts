@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import FormData from 'form-data';
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:8000';
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL;
 
 // POST /api/paint/segment-wall
 export async function segmentWall(req: Request, res: Response, next: NextFunction) {

@@ -1,48 +1,48 @@
 export interface EnquiryEmailData {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    pincode: string;
-    state: string;
-    enquiryType: string;
-    message?: string | null;
-    productName?: string | null;
-    productSlug?: string | null;
-    serviceName?: string | null;
-    serviceSlug?: string | null;
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  pincode: string;
+  state: string;
+  enquiryType: string;
+  message?: string | null;
+  productName?: string | null;
+  productSlug?: string | null;
+  serviceName?: string | null;
+  serviceSlug?: string | null;
 }
 
 export function enquiryNotificationTemplate(enquiry: EnquiryEmailData): string {
-    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const clientUrl = process.env.CLIENT_URL;
 
-    const productRow = enquiry.productName
-        ? `
+  const productRow = enquiry.productName
+    ? `
         <tr>
           <td style="border-bottom: 1px solid #eeeeee;"><strong>Product</strong></td>
           <td style="border-bottom: 1px solid #eeeeee;">
             ${enquiry.productName}
             ${enquiry.productSlug
-            ? ` (<a href="${clientUrl}/products/${enquiry.productSlug}">view</a>)`
-            : ''}
+      ? ` (<a href="${clientUrl}/products/${enquiry.productSlug}">view</a>)`
+      : ''}
           </td>
         </tr>`
-        : '';
+    : '';
 
-    const serviceRow = enquiry.serviceName
-        ? `
+  const serviceRow = enquiry.serviceName
+    ? `
         <tr>
           <td style="border-bottom: 1px solid #eeeeee;"><strong>Service</strong></td>
           <td style="border-bottom: 1px solid #eeeeee;">
             ${enquiry.serviceName}
             ${enquiry.serviceSlug
-            ? ` (<a href="${clientUrl}/services/${enquiry.serviceSlug}">view</a>)`
-            : ''}
+      ? ` (<a href="${clientUrl}/services/${enquiry.serviceSlug}">view</a>)`
+      : ''}
           </td>
         </tr>`
-        : '';
+    : '';
 
-    return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
