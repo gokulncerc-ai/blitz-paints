@@ -4,9 +4,9 @@ export default function CTABanner() {
     <section className="bg-navy text-white">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-14 md:flex-row md:items-center">
         <div>
-          <h2 className="text-3xl font-bold">Need Expert Advice For Your Project</h2>
+          <h2 className="text-3xl font-bold">Need Expert Advice?</h2>
           <p className="mt-2 max-w-lg text-white/70">
-            Our colour experts and technical teams are here to help you choose the right solutions.
+            Our colour experts and technical team are here to help you choose the Beautiful solutions.
           </p>
         </div>
         <a href="tel:+919876543210">

@@ -70,7 +70,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@types/node':
-        specifier: ^20.14.10
+        specifier: ^20.19.43
         version: 20.19.43
       '@types/nodemailer':
         specifier: ^8.0.1
@@ -88,7 +88,7 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.19.43)(typescript@5.9.3)
       typescript:
-        specifier: ^5.5.4
+        specifier: ^5.9.3
         version: 5.9.3
 
 packages:

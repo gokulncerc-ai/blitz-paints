@@ -20,7 +20,7 @@ const CARDS = [
     to: '/services',
   },
   {
-    title: 'WaterProofing Solutions',
+    title: 'Water Proofing Solutions',
     desc: 'Advance Damp Protection for roofs, basements, and bathrooms',
     bgColor: 'bg-[#B3E0F6]',
     iconBg: 'bg-[#2091FA]',
@@ -29,7 +29,7 @@ const CARDS = [
     to: '/services',
   },
   {
-    title: 'Tiles & Chemicals',
+    title: 'Flooring Solutions',
     desc: 'High Performance Tile adhesives, polymers and construction chemicals',
     bgColor: 'bg-[#E0E8D9]',
     iconBg: 'bg-[#408D16]',

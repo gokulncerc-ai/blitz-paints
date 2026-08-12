@@ -7,7 +7,7 @@ const COLUMNS = [
     links: [
       { label: 'About us', to: '/about' },
       { label: 'Our Brand', to: '/about' },
-      { label: 'Quality & Safety', to: '/about' },
+      { label: 'Quality', to: '/about' },
       { label: 'Careers', to: '/about' },
     ],
   },
@@ -16,8 +16,8 @@ const COLUMNS = [
     links: [
       { label: 'Interior Paints', to: '/products?type=interior_wall_coating' },
       { label: 'Exterior Paints', to: '/products?type=exterior_wall_coating' },
-      { label: 'Waterproofing', to: '/products?type=waterproofing' },
-      { label: 'Tile Chemicals', to: '/products?type=tile_chemicals' },
+      { label: 'Water Proofing', to: '/products?type=waterproofing' },
+      { label: 'Specialty Coatings', to: '/products?type=specialty_coating' },
     ],
   },
   {
@@ -25,7 +25,6 @@ const COLUMNS = [
     links: [
       { label: 'Painting Services', to: '/services' },
       { label: 'Waterproofing Solutions', to: '/services' },
-      { label: 'Colour', to: '/colours' },
     ],
   },
   {
@@ -68,9 +67,10 @@ export default function Footer() {
 
         <div>
           <h4 className="mb-3 font-semibold">Contact Us</h4>
-          <p className="text-sm text-white/70">SIDCO Industrial Estate, Shornur, Kerala - 679122</p>
-          <p className="mt-2 text-sm text-white/70">9876543210</p>
-          <p className="mt-2 text-sm text-white/70">Marketing@blitz.com</p>
+          <p className="text-sm text-white/70">Blitz Paints Pvt Ltd, SIDCO Industrial Estate Kulappully, Shoranur,
+            Palakkad (Dt)Kerala</p>
+          <p className="mt-2 text-sm text-white/70"> +91 90723 53003</p>
+          <p className="mt-2 text-sm text-white/70">marketing@blitzpaint.com</p>
         </div>
       </div>
 

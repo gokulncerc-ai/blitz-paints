@@ -11,14 +11,11 @@ import ErrorMessage from '../ui/ErrorMessage';
 
 const TYPE_TABS = [
   { key: 'all', label: 'All' },
+  { key: 'primer', label: 'Primers' },
   { key: 'interior_wall_coating', label: 'Interior' },
   { key: 'exterior_wall_coating', label: 'Exterior' },
-  { key: 'primer', label: 'Primers' },
   { key: 'specialty_coating', label: 'Specialty Coatings' },
 ];
-
-
-
 function formatBadgeLabel(priceRange: string) {
   return priceRange.charAt(0).toUpperCase() + priceRange.slice(1);
 }

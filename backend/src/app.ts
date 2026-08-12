@@ -29,7 +29,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cookieParser()); // needed so authenticate.middleware.ts can read req.cookies.token
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.use('/api', apiRouter);

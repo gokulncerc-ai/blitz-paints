@@ -338,15 +338,29 @@ async function main() {
       isFeatured: true,
     },
     {
-      name: "Tiles & Chemicals",
-      slug: "tiles-and-chemicals",
-      description: "High performance tile adhesives, polymers and construction chemicals.",
-      serviceType: "tile_coating",
+      name: "Flooring Solutions",
+      slug: "flooring-solutions",
+      description: "High performance flooring solutions, tile adhesives, polymers and construction chemicals.",
+      serviceType: "flooring_coating",
       images: ["/images/services/tiles-chemicals.jpg"],
       isFeatured: true,
     },
   ];
 
+  const renamed = await prisma.service.updateMany({
+    where: { slug: "tiles-and-chemicals" },
+    data: {
+      name: "Flooring Solutions",
+      slug: "flooring-solutions",
+      description: "High performance flooring solutions, tile adhesives, polymers and construction chemicals.",
+      serviceType: "flooring_coating",
+      images: ["/images/services/tiles-chemicals.jpg"],
+      isFeatured: true,
+    },
+  });
+  if (renamed.count > 0) {
+    console.log(`Renamed service: Tiles & Chemicals -> Flooring Solutions`);
+  }
   for (const s of services) {
     await prisma.service.upsert({
       where: { slug: s.slug },

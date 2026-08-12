@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <ServiceCategoryCards />
       <FeaturedProducts />
+      <ServiceCategoryCards />
       <ColourStudio />
       <Transformations />
       <NewsSection />
