@@ -1,5 +1,6 @@
-// Path: frontend/src/components/layout/Footer.tsx
 import { Link } from 'react-router-dom';
+// ---footer logo----
+import footerlogo from "../../assets/images/blitzlogo.png";
 
 const COLUMNS = [
   {
@@ -42,11 +43,15 @@ export default function Footer() {
     <footer className="bg-navy-dark text-white">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-3 lg:grid-cols-6">
         <div className="col-span-2">
-          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg font-bold text-navy">
-            B
+          <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-white">
+            <img
+              src={footerlogo}
+              alt="footerlogo"
+              className="h-14 w-14 rounded-full object-contain"
+            />
           </div>
           <p className="text-sm text-white/70">
-            Transforming Spaces With High Durability Coatings
+            <strong> Transforming Spaces With <br /> High Durability Coatings </strong>
           </p>
         </div>
 
@@ -75,7 +80,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 px-6 py-4 text-center text-xs text-white/60">
-        © 2026 Blitz Paints. All Rights Reserved
+        Â© 2026 Blitz Paints. All Rights Reserved
       </div>
     </footer>
   );
