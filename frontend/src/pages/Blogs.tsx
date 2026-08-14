@@ -5,7 +5,7 @@ import { getNews } from '../api/news';
 import { NewsArticle } from '../types';
 import Loader from '../components/ui/Loader';
 import ErrorMessage from '../components/ui/ErrorMessage';
-import { getNewsImage } from '../components/home/NewsSection';
+import { NewsThumbnail } from '../components/home/NewsSection';
 
 export default function Blogs() {
   const [news, setNews] = useState<NewsArticle[]>([]);
@@ -28,7 +28,7 @@ export default function Blogs() {
       <div className="grid gap-6 md:grid-cols-3">
         {news.map((article) => (
           <Link key={article.id} to={`/blogs/${article.slug}`} className="overflow-hidden rounded-xl border border-navy/10 hover:shadow-lg">
-            <img src={getNewsImage(article)} alt={article.title} className="h-40 w-full object-cover" />
+            <NewsThumbnail article={article} className="h-40 w-full object-cover" />
             <div className="p-5">
               <h3 className="font-bold text-navy">{article.title}</h3>
               <p className="mt-1 text-sm text-navy/60">{article.excerpt}</p>

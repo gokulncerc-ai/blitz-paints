@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getNews } from '../../api/news';
 import { NewsArticle } from '../../types';
@@ -19,8 +19,6 @@ const NEWS_IMAGES: Record<string, string> = {
 };
 
 // Press-coverage video clips, keyed by the filename found in `videoUrl`.
-// Kept separate from NEWS_IMAGES since these are .mp4 files, not images -
-// they can only ever be used with a <video> element, never an <img>.
 const NEWS_VIDEOS: Record<string, string> = {
   'manorama-news': press1,
   'big-tv-news': press2,
@@ -42,6 +40,58 @@ export function getNewsVideo(article: NewsArticle): string | null {
     .pop()
     ?.replace(/\.[^/.]+$/, '');
   return (filename && NEWS_VIDEOS[filename]) || null;
+}
+
+/**
+ * Renders the correct preview for a news article - a <video> for
+ * press-coverage clips, an <img> for everything else. Shared between
+ * NewsSection (homepage) and Blogs (listing page) so both always show a
+ * real preview instead of duplicating the image/video logic per page.
+ *
+ * For videos: preload="metadata" alone leaves most browsers showing a
+ * blank/black box, since only header info (duration, dimensions) gets
+ * fetched - no actual frame is decoded until playback starts. Nudging
+ * `currentTime` slightly once metadata loads forces the browser to decode
+ * and paint a real frame, giving a proper thumbnail with no extra poster
+ * image asset needed.
+ */
+export function NewsThumbnail({ article, className }: { article: NewsArticle; className?: string }) {
+  const videoSrc = getNewsVideo(article);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!videoSrc) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const paintFirstFrame = () => {
+      try {
+        video.currentTime = 0.1;
+      } catch {
+        // Some browsers throw if the video isn't ready yet - safe to ignore,
+        // the thumbnail just falls back to whatever frame loads naturally.
+      }
+    };
+
+    video.addEventListener('loadedmetadata', paintFirstFrame);
+    return () => video.removeEventListener('loadedmetadata', paintFirstFrame);
+  }, [videoSrc]);
+
+  if (videoSrc) {
+    return (
+      <video
+        ref={videoRef}
+        src={videoSrc}
+        aria-label={article.title}
+        muted
+        playsInline
+        preload="metadata"
+        className={className}
+      />
+    );
+  }
+
+  return <img src={getNewsImage(article)} alt={article.title} className={className} />;
 }
 
 export default function NewsSection() {
@@ -70,40 +120,24 @@ export default function NewsSection() {
 
       {!loading && !error && (
         <div className="grid gap-6 md:grid-cols-3">
-          {news.slice(0, 3).map((article) => {
-            const videoSrc = getNewsVideo(article);
-
-            return (
-              <div key={article.id} className="flex items-center gap-4 p-4 overflow-hidden rounded-xl border border-navy/10">
-                {videoSrc ? (
-                  <video
-                    src={videoSrc}
-                    aria-label={article.title}
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="h-16 w-16 flex-shrink-0 rounded-lg object-cover"
-                  />
-                ) : (
-                  <img
-                    src={getNewsImage(article)}
-                    alt={article.title}
-                    className="h-16 w-16 flex-shrink-0 rounded-lg object-cover" // Small thumbnail size
-                  />
-                )}
-                <div className="flex-1">
-                  <div className="mb-1 flex items-center gap-3 text-xs text-navy/50">
-                    <span>{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ''}</span>
-                    {article.tag && <span className="font-semibold text-accent">{article.tag}</span>}
-                  </div>
-                  <h3 className="mb-2 font-bold text-navy text-sm">{article.title}</h3>
-                  <Link to={`/blogs/${article.slug}`} className="text-xs font-semibold text-accent hover:underline">
-                    Read More →
-                  </Link>
+          {news.slice(0, 3).map((article) => (
+            <div key={article.id} className="flex items-center gap-4 p-4 overflow-hidden rounded-xl border border-navy/10">
+              <NewsThumbnail
+                article={article}
+                className="h-16 w-16 flex-shrink-0 rounded-lg object-cover"
+              />
+              <div className="flex-1">
+                <div className="mb-1 flex items-center gap-3 text-xs text-navy/50">
+                  <span>{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ''}</span>
+                  {article.tag && <span className="font-semibold text-accent">{article.tag}</span>}
                 </div>
+                <h3 className="mb-2 font-bold text-navy text-sm">{article.title}</h3>
+                <Link to={`/blogs/${article.slug}`} className="text-xs font-semibold text-accent hover:underline">
+                  Read More →
+                </Link>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       )}
     </section>
