@@ -18,11 +18,10 @@ const NEWS_IMAGES: Record<string, string> = {
   'builders-expo': Expo,
 };
 
-// Press-coverage video clips, keyed by the filename found in `videoUrl`.
 const NEWS_VIDEOS: Record<string, string> = {
-  'manorama-news': press1,
-  'big-tv-news': press2,
-  'stv-channel-news': press3,
+  'manorama_news': press1,
+  'bigtv_news': press2,
+  'stvchannel': press3,
 };
 
 export function getNewsImage(article: NewsArticle): string {
