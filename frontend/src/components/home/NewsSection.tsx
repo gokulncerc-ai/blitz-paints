@@ -10,20 +10,38 @@ import Expo from '../../assets/images/news/builders-expo.jpg';
 import press1 from '../../assets/vedio/manorama_news.mp4';
 import press2 from '../../assets/vedio/bigtv_news.mp4';
 import press3 from '../../assets/vedio/stvchannel.mp4';
+
+// Static image thumbnails, keyed by the filename found in `featuredImage`.
 const NEWS_IMAGES: Record<string, string> = {
   'garnet-launch': GarnetGlossyInteriorEmulsion,
   'dealer-network': dealerNews,
   'builders-expo': Expo,
+};
+
+// Press-coverage video clips, keyed by the filename found in `videoUrl`.
+// Kept separate from NEWS_IMAGES since these are .mp4 files, not images -
+// they can only ever be used with a <video> element, never an <img>.
+const NEWS_VIDEOS: Record<string, string> = {
   'manorama-news': press1,
   'big-tv-news': press2,
   'stv-channel-news': press3,
 };
+
 export function getNewsImage(article: NewsArticle): string {
   const filename = article.featuredImage
     ?.split('/')
     .pop()
     ?.replace(/\.[^/.]+$/, '');
   return (filename && NEWS_IMAGES[filename]) || dealerNews;
+}
+
+/** Returns the bundled video source for an article's videoUrl, or null if it has none / isn't recognised. */
+export function getNewsVideo(article: NewsArticle): string | null {
+  const filename = article.videoUrl
+    ?.split('/')
+    .pop()
+    ?.replace(/\.[^/.]+$/, '');
+  return (filename && NEWS_VIDEOS[filename]) || null;
 }
 
 export default function NewsSection() {
@@ -52,25 +70,40 @@ export default function NewsSection() {
 
       {!loading && !error && (
         <div className="grid gap-6 md:grid-cols-3">
-          {news.slice(0, 3).map((article) => (
-            <div key={article.id} className="flex items-center gap-4 p-4 overflow-hidden rounded-xl border border-navy/10">
-              <img
-                src={getNewsImage(article)}
-                alt={article.title}
-                className="h-16 w-16 flex-shrink-0 rounded-lg object-cover" // Small thumbnail size
-              />
-              <div className="flex-1">
-                <div className="mb-1 flex items-center gap-3 text-xs text-navy/50">
-                  <span>{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ''}</span>
-                  {article.tag && <span className="font-semibold text-accent">{article.tag}</span>}
+          {news.slice(0, 3).map((article) => {
+            const videoSrc = getNewsVideo(article);
+
+            return (
+              <div key={article.id} className="flex items-center gap-4 p-4 overflow-hidden rounded-xl border border-navy/10">
+                {videoSrc ? (
+                  <video
+                    src={videoSrc}
+                    aria-label={article.title}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="h-16 w-16 flex-shrink-0 rounded-lg object-cover"
+                  />
+                ) : (
+                  <img
+                    src={getNewsImage(article)}
+                    alt={article.title}
+                    className="h-16 w-16 flex-shrink-0 rounded-lg object-cover" // Small thumbnail size
+                  />
+                )}
+                <div className="flex-1">
+                  <div className="mb-1 flex items-center gap-3 text-xs text-navy/50">
+                    <span>{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ''}</span>
+                    {article.tag && <span className="font-semibold text-accent">{article.tag}</span>}
+                  </div>
+                  <h3 className="mb-2 font-bold text-navy text-sm">{article.title}</h3>
+                  <Link to={`/blogs/${article.slug}`} className="text-xs font-semibold text-accent hover:underline">
+                    Read More →
+                  </Link>
                 </div>
-                <h3 className="mb-2 font-bold text-navy text-sm">{article.title}</h3>
-                <Link to={`/blogs/${article.slug}`} className="text-xs font-semibold text-accent hover:underline">
-                  Read More →
-                </Link>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </section>
