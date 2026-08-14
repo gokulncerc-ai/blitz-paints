@@ -114,6 +114,7 @@ model News {
   excerpt       String?
   content       String
   featuredImage String?   @map("featured_image")
+  videoUrl      String?   @map("video_url")
   tag           String?   // Product Launch, Company Update, Event
   isPublished   Boolean   @default(false) @map("is_published")
   publishedAt   DateTime? @map("published_at")

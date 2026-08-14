@@ -7,13 +7,17 @@ import ErrorMessage from '../ui/ErrorMessage';
 import GarnetGlossyInteriorEmulsion from '../../assets/images/news/garnet-launch.png';
 import dealerNews from '../../assets/images/news/dealer-network.jpg';
 import Expo from '../../assets/images/news/builders-expo.jpg';
-
+import press1 from '../../assets/vedio/manorama_news.mp4';
+import press2 from '../../assets/vedio/bigtv_news.mp4';
+import press3 from '../../assets/vedio/stvchannel.mp4';
 const NEWS_IMAGES: Record<string, string> = {
   'garnet-launch': GarnetGlossyInteriorEmulsion,
   'dealer-network': dealerNews,
   'builders-expo': Expo,
+  'manorama-news': press1,
+  'big-tv-news': press2,
+  'stv-channel-news': press3,
 };
-
 export function getNewsImage(article: NewsArticle): string {
   const filename = article.featuredImage
     ?.split('/')

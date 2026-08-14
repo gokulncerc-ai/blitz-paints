@@ -9,7 +9,8 @@ export interface NewsRecord {
     excerpt: string | null;
     content: string;
     featuredImage: string | null;
-    tag: string | null; // Product Launch | Company Update | Event
+    videoUrl: string | null;
+    tag: string | null;
     isPublished: boolean;
     publishedAt: Date | null;
     createdAt: Date;

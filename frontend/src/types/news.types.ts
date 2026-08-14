@@ -8,6 +8,7 @@ export interface NewsArticle {
     excerpt: string | null;
     content: string;
     featuredImage: string | null;
+    videoUrl: string | null;
     tag: string | null;
     isPublished: boolean;
     publishedAt: string | null;
