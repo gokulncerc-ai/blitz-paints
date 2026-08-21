@@ -8,7 +8,7 @@ import ModeModelPreviewl from '../../assets/images/modelpreview1.png';
 import ModeModelPreview2 from '../../assets/images/modelpreview2.png';
 import ModeModelPreview3 from '../../assets/images/modelpreview3.png';
 import ModeModelPreview4 from '../../assets/images/modelpreview4.png';
-
+import ModelPreview5 from '../../assets/images/onamblitz.png';
 import {
   ShieldCheck, Sun, Leaf, Award, PaintBucket, Ruler
 } from 'lucide-react';
@@ -23,15 +23,13 @@ const STATS = [
   { value: 'Over 5 Million+', label: 'Sq.ft Painted', icon: Ruler },
 ];
 
-// ---------------------------------------------------------------------------
-// Hero carousel data + timing
-// ---------------------------------------------------------------------------
 const CAROUSEL_IMAGES = [
   ModelPreview,
   ModeModelPreviewl,
   ModeModelPreview2,
   ModeModelPreview3,
   ModeModelPreview4,
+  ModelPreview5,
 ];
 const SLIDE_INTERVAL_MS = 4500;
 
@@ -304,34 +302,34 @@ export default function Hero() {
           </div>
         </div>
         {/* BOTTOM STATS CARD */}
-        <div className="mt-6 lg:mt-[40px] mx-auto w-full max-w-[1280px] min-h-[96px] rounded-[10px] bg-white p-3 sm:p-4 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.25)] grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-center">
+        <div className="mt-4 sm:mt-6 lg:mt-[40px] mx-auto w-[92%] sm:w-full max-w-[1280px] min-h-[80px] sm:min-h-[96px] rounded-[8px] sm:rounded-[10px] bg-white p-2.5 sm:p-4 shadow-[0px_4px_8px_0px_rgba(0,0,0,0.25)] grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 items-center">
           {STATS.map((item) => {
             // Determine if the icon is a Lucide Component or an Image Path String
             const IconComponent = typeof item.icon !== 'string' ? item.icon : null;
 
             return (
-              <div key={item.label} className="flex items-center gap-2.5 sm:gap-3.5 justify-start min-w-0">
+              <div key={item.label} className="flex items-center gap-2 sm:gap-3.5 justify-start min-w-0">
                 {/* Icon Box */}
-                <div className="flex h-[48px] w-[48px] sm:h-[60px] sm:w-[60px] items-center justify-center rounded-[8px] sm:rounded-[10px] bg-[#D9D9D9] flex-shrink-0">
+                <div className="flex h-[38px] w-[38px] sm:h-[60px] sm:w-[60px] items-center justify-center rounded-[6px] sm:rounded-[10px] bg-[#D9D9D9] flex-shrink-0">
                   {IconComponent ? (
                     /* Render as React Component */
-                    <IconComponent className="h-5 w-5 sm:h-7 sm:w-7 text-[#000080]" />
+                    <IconComponent className="h-4 w-4 sm:h-7 sm:w-7 text-[#000080]" />
                   ) : (
                     /* Render as Image Tag */
                     <img
                       src={item.icon as string}
                       alt={item.label}
-                      className="h-5 w-5 sm:h-7 sm:w-7 object-contain"
+                      className="h-4 w-4 sm:h-7 sm:w-7 object-contain"
                     />
                   )}
                 </div>
 
                 {/* Text Area */}
                 <div className="flex flex-col justify-center min-w-0">
-                  <span className="font-inter font-bold text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] leading-tight text-[#000080] whitespace-nowrap">
+                  <span className="font-inter font-bold text-[13px] sm:text-[18px] lg:text-[20px] xl:text-[22px] leading-tight text-[#000080] whitespace-nowrap">
                     {item.value}
                   </span>
-                  <span className="font-inter font-medium text-[11px] sm:text-[12px] lg:text-[13px] text-gray-800 mt-0.5 whitespace-nowrap">
+                  <span className="font-inter font-medium text-[10px] sm:text-[12px] lg:text-[13px] text-gray-800 mt-0.5 whitespace-nowrap">
                     {item.label}
                   </span>
                 </div>
